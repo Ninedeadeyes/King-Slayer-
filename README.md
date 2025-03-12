@@ -4,5 +4,7 @@ Decided to learn pygame this year but needed 'something' to implement the mechan
  
 Art assets from https://opengameart.org/
 
-https://opengameart.org/content/isometric-medieval-city-sim-assets//
+https://opengameart.org/content/isometric-medieval-city-sim-assets
+
+
 https://opengameart.org/content/axe-cursor
