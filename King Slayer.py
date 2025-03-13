@@ -538,6 +538,7 @@ class Game:
                             self.gold -= self.lesser_demon_passive_gold_income_cost
                             self.damage_per_click+=7000
                             self.gold_per_click+=5000
+                            demon_sound.play()
                             self.lesser_demon_passive_income_cost+=1
                             self.lesser_demon_passive_gold_income_cost+=100000
                             self.clicked = False
@@ -596,7 +597,7 @@ click_sound=pygame.mixer.Sound("assets/click.flac")
 destroy_sound=pygame.mixer.Sound("assets/destroy.wav")
 upgrade_sound=pygame.mixer.Sound("assets/upgrade.wav")
 hire_sound=pygame.mixer.Sound("assets/hire.wav")
-
+demon_sound=pygame.mixer.Sound("assets/demon.wav")
 
 click_sound.set_volume(0.5)
 destroy_sound.set_volume(0.6) 
