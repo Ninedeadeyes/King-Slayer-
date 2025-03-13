@@ -1,5 +1,5 @@
 
-Decided to learn pygame this year but needed 'something' to implement the mechanics I have learned and this game is going to be it. Playable at the moment but very bare bone and will be updating with time.  
+In Progress but playable 
 
  
 Art assets from https://opengameart.org/
