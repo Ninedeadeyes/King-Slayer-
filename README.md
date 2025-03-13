@@ -1,5 +1,5 @@
 
-In Progress but playable 
+Game is not yet completed but it is playable
 
  
 Art assets from https://opengameart.org/
