@@ -30,7 +30,9 @@ class Game:
         self.good_ending_rect=self.castle_image.get_rect(center=(screen.get_width()/2-50,screen.get_height()/2+50))
         self.bad_ending_rect=self.castle_image.get_rect(center=(screen.get_width()/2-50,screen.get_height()/2+50))
 
-        #images 
+        #images # screen.blit(self.orc_image,self.orc_rect)
+
+        self.hover_scale_factor = 0.95 # Makes image 5% smaller on hover
 
         self.orc_image=pygame.image.load("assets/orc_img.jpg").convert_alpha()
 
@@ -38,8 +40,6 @@ class Game:
             (self.orc_image.get_width() // 2.7, self.orc_image.get_height() // 2.7))
         
         self.orc_rect=self.orc_image.get_rect(topleft=(1000,120))
-
-       # screen.blit(self.orc_image,self.orc_rect)
 
         self.troll_image=pygame.image.load("assets/troll_img.jpg").convert_alpha()
         self.troll_rect=self.troll_image.get_rect(topleft=(1000,250))
@@ -83,6 +83,36 @@ class Game:
         (self.kobold_image.get_width() // 2.7, self.kobold_image.get_height() // 2.7))   
 
         self.kobold_rect=self.kobold_image.get_rect(topleft=(330,380))
+
+
+        self.orc_hover_image = pygame.transform.smoothscale(self.orc_image,
+                                                           (int(self.orc_image.get_width() * self.hover_scale_factor),
+                                                            int(self.orc_image.get_height() * self.hover_scale_factor)))
+    
+        self.goblin_hover_image = pygame.transform.smoothscale(self.goblin_image,
+                                                           (int(self.goblin_image.get_width() * self.hover_scale_factor),
+                                                            int(self.goblin_image.get_height() * self.hover_scale_factor)))
+        
+        self.troll_hover_image = pygame.transform.smoothscale(self.troll_image,
+                                                           (int(self.troll_image.get_width() * self.hover_scale_factor),
+                                                            int(self.troll_image.get_height() * self.hover_scale_factor)))
+        
+
+        self.knight_hover_image = pygame.transform.smoothscale(self.knight_image,
+                                                           (int(self.knight_image.get_width() * self.hover_scale_factor),
+                                                            int(self.knight_image.get_height() * self.hover_scale_factor)))
+        
+        self.kobold_hover_image = pygame.transform.smoothscale(self.kobold_image,
+                                                           (int(self.kobold_image.get_width() * self.hover_scale_factor),
+                                                            int(self.kobold_image.get_height() * self.hover_scale_factor)))
+        
+        self.hastur_hover_image = pygame.transform.smoothscale(self.hastur_image,
+                                                           (int(self.hastur_image.get_width() * self.hover_scale_factor),
+                                                            int(self.hastur_image.get_height() * self.hover_scale_factor)))
+        
+        self.ratling_hover_image = pygame.transform.smoothscale(self.ratling_image,
+                                                           (int(self.ratling_image.get_width() * self.hover_scale_factor),
+                                                            int(self.ratling_image.get_height() * self.hover_scale_factor)))
 
         self.health_bar_x = 130  # Position of health bar
         self.health_bar_y = 815  # Position below castle info
@@ -140,8 +170,8 @@ class Game:
         self.knights=0
 
         self.lesser_demon_passive_income_rect = pygame.Rect(770, 490, 220, 120)  # Position left of weapon upgrade
-        self.lesser_demon_passive_income_cost = 2  # Starting cost
-        self.lesser_demon_passive_gold_income_cost = 100000  # Starting cost
+        self.lesser_demon_passive_income_cost = 1  # Starting cost
+        self.lesser_demon_passive_gold_income_cost = 75000  # Starting cost
         self.lesser_demon_damage_per_second = 0      # Current passive income rate
         self.lesser_demons=0
 
@@ -151,7 +181,7 @@ class Game:
         self.start_time = None
         self.end_time = None
         self.is_running = False
-
+         
     def start_timer(self):
         """Start the game timer"""
         if not self.is_running:
@@ -210,7 +240,13 @@ class Game:
         screen.blit(lesser_demon_passive_cost_display2, (775, 540))
         screen.blit(lesser_demon_passive_cost_display3, (775, 560))
         screen.blit(lesser_demon_passive_cost_display4, (775, 580))
-        screen.blit(self.hastur_image,self.hastur_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.hastur_rect.collidepoint(mouse_pos):
+            screen.blit(self.hastur_hover_image, self.hastur_rect)
+        else:
+            screen.blit(self.hastur_image, self.hastur_rect)
 
 
     def display_demon_passive_damage_upgrade(self):
@@ -249,10 +285,16 @@ class Game:
         screen.blit(orc_count,(775,140))
         screen.blit(orc_passive_attack_display, (775, 160))
         screen.blit(orc_passive_cost_display, (775, 180))
-        screen.blit(self.orc_image,self.orc_rect)
+        
+        mouse_pos = pygame.mouse.get_pos()
 
+        if self.orc_rect.collidepoint(mouse_pos):
+            screen.blit(self.orc_hover_image, self.orc_rect)
+        else:
+            screen.blit(self.orc_image, self.orc_rect)
+       
     def display_troll_passive_damage_upgrade(self):
-        troll_title = self.button_title_font.render("Doom Troll Hideout", True, "black")
+        troll_title = self.button_title_font.render("Bog Troll Hideout", True, "black")
         troll_count=self.button_font.render( 
              f"Trolls: {self.trolls}", True, "black")
         troll_passive_attack_display = self.button_font.render(
@@ -265,7 +307,13 @@ class Game:
         screen.blit(troll_count,(775,270))
         screen.blit(troll_passive_attack_display, (775, 290))
         screen.blit(troll_passive_cost_display, (775, 310))
-        screen.blit(self.troll_image,self.troll_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+        
+        if self.troll_rect.collidepoint(mouse_pos):
+            screen.blit(self.troll_hover_image, self.troll_rect)
+        else:
+            screen.blit(self.troll_image, self.troll_rect)
 
     def display_knight_passive_damage_upgrade(self):
         knight_title = self.button_title_font.render("Death Knight Stronghold", True, "black")
@@ -281,7 +329,15 @@ class Game:
         screen.blit(knight_count,(775,400))
         screen.blit(knight_passive_attack_display, (775, 420))
         screen.blit(knight_passive_cost_display, (775,440))
-        screen.blit(self.knight_image,self.knight_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.knight_rect.collidepoint(mouse_pos):
+            screen.blit(self.knight_hover_image, self.knight_rect)
+        else:
+            screen.blit(self.knight_image, self.knight_rect)
+
+
 
     def display_kobold_passive_income_upgrade(self):
         kobold_title = self.button_title_font.render("Kobold Gold Mine", True, "black")
@@ -297,7 +353,15 @@ class Game:
         screen.blit(kobold_count,(105,400))
         screen.blit(kobold_passive_income_display, (105, 420))
         screen.blit(kobold_passive_cost_display, (105, 440))
-        screen.blit(self.kobold_image,self.kobold_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.kobold_rect.collidepoint(mouse_pos):
+            screen.blit(self.kobold_hover_image, self.kobold_rect)
+        else:
+            screen.blit(self.kobold_image, self.kobold_rect)
+
+
 
     def display_ratling_passive_income_upgrade(self):
         ratling_title = self.button_title_font.render("Ratling Loan Shark Den", True, "black")
@@ -313,7 +377,15 @@ class Game:
         screen.blit(ratling_count,(105,270))
         screen.blit(ratling_passive_income_display, (105, 290))
         screen.blit(ratling_passive_cost_display, (105, 310))
-        screen.blit(self.ratling_image,self.ratling_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.ratling_rect.collidepoint(mouse_pos):
+            screen.blit(self.ratling_hover_image, self.ratling_rect)
+        else:
+            screen.blit(self.ratling_image, self.ratling_rect)
+
+
     
     def display_goblin_passive_income_upgrade(self):
         goblin_title = self.button_title_font.render("Goblin Fungus Farm", True, "black")
@@ -329,7 +401,13 @@ class Game:
         screen.blit(goblin_count,(105,140))
         screen.blit(goblin_passive_income_display, (105, 160))
         screen.blit(goblin_passive_cost_display, (105, 180))
-        screen.blit(self.goblin_image,self.goblin_rect)
+
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.goblin_rect.collidepoint(mouse_pos):
+            screen.blit(self.goblin_hover_image, self.goblin_rect)
+        else:
+            screen.blit(self.goblin_image, self.goblin_rect)
 
     def update_castle_shake(self):
         if self.castle_shake_duration > 0:
@@ -485,10 +563,12 @@ class Game:
             pygame.mixer.music.stop()
             
             if self.unhappy_ending:
+
                 self.ending0_msg = self.button_title_font.render("Bad Ending", True,  "white")
                 self.ending1_msg = self.button_title_font.render("You have unleashed Azathoth !! You have slain all the Kings ", True,  "white")
                 self.ending2_msg = self.button_title_font.render( "as well as everything else !! Contemplate your foolish actions in silence..  ", True,  "white")
                 self.ending4_msg = self.button_title_font.render ( "Play again to redeem yourself or see how quick you can destroy the world ..Again.  ", True, "white")
+                self.ending5_msg = self.button_title_font.render ("Attempt to get a completion time below 12 minutes ", True, "white")
                 screen.blit(self.bad_ending,self.bad_ending_rect)
 
             else:
@@ -496,6 +576,8 @@ class Game:
                  self.ending1_msg= self.button_title_font.render("You have ended the royal bloodline.", True,  "white")
                  self.ending2_msg = self.button_title_font.render ("Vengeance is yours !! All hail the King Slayer !!   ", True, "white")
                  self.ending4_msg = self.button_title_font.render ("Congratulation !! Can you get a better completion time ?   ", True, "white")
+                 self.ending5_msg = self.button_title_font.render ("Attempt to get a completion time below 14 minutes ", True, "white")
+
                  screen.blit(self.good_ending,self.good_ending_rect)
 
             elapsed_time = self.get_elapsed_time()
@@ -508,6 +590,7 @@ class Game:
             screen.blit(self.ending1_msg,(320,200))
             screen.blit(self.ending2_msg,(320,220))
             screen.blit(self.ending4_msg,(320,260))
+            screen.blit(self.ending5_msg,(320,280))
             screen.blit(self.ending3_msg,(410,840))
             screen.blit(completion_time, (440,800))
                
@@ -592,8 +675,10 @@ class Game:
                             self.clicked = False
 
             if self.orc_rect.collidepoint(self.mouse_pos):
+
                 if pygame.mouse.get_pressed()[0]:
                     self.clicked = True
+                    
                 else:
                     if self.clicked:
                         if self.gold >= self.orc_passive_income_cost:
@@ -603,6 +688,7 @@ class Game:
                             self.orcs+=1
                             hire_sound.play()
                             self.clicked = False
+                 
 
             if self.troll_rect.collidepoint(self.mouse_pos):
                 if pygame.mouse.get_pressed()[0]:
@@ -641,6 +727,7 @@ class Game:
                             self.unhappy_ending=True
                             self.demon_damage_per_second=99999999999999     # Increase passive income by 1 gold/sec
                             self.demon_passive_income_cost=99
+                            demon_sound.play()
                             self.clicked = False
 
 
@@ -652,11 +739,10 @@ class Game:
                         if self.castle_defeated >= self.lesser_demon_passive_income_cost and self.gold >= self.lesser_demon_passive_gold_income_cost:
                             self.castle_defeated -= self.lesser_demon_passive_income_cost
                             self.gold -= self.lesser_demon_passive_gold_income_cost
-                            self.damage_per_click+=3800
-                            self.gold_per_click+=2100
-                            self.lesser_demon_passive_income_cost+=2
-                            self.lesser_demon_passive_gold_income_cost+=100000
-                            demon_sound.play()
+                            self.damage_per_click+=1600
+                            self.gold_per_click+=900
+                            self.lesser_demon_passive_gold_income_cost+=15000
+                            hastur_sound.play()
                             self.clicked = False
      
     def render(self):
@@ -667,6 +753,7 @@ class Game:
             self.get_elapsed_time()
 
         else:
+            self.click_button()
             self.start_timer()
             self.destroyed_castle()
             self.update_castle_shake()
@@ -696,6 +783,7 @@ class Game:
             self.draw_health_bar(screen) 
             self.instruction()
             self.story()
+            self.axe_cursor()
 
 screen_width=1200
 screen_height=900
@@ -715,15 +803,16 @@ click_sound=pygame.mixer.Sound("assets/click.ogg")
 destroy_sound=pygame.mixer.Sound("assets/destroy.ogg")
 upgrade_sound=pygame.mixer.Sound("assets/upgrade.ogg")
 hire_sound=pygame.mixer.Sound("assets/hire.ogg")
+hastur_sound=pygame.mixer.Sound("assets/hastur.ogg")
 demon_sound=pygame.mixer.Sound("assets/demon.ogg")
-
 
 click_sound.set_volume(0.5)
 destroy_sound.set_volume(0.6) 
 upgrade_sound.set_volume(0.6)
 
 async def main():
-    pygame.mixer.init()
+    pygame.mixer.init(44100, -16, 2, 2048)
+    
     music_tracks = [
         'assets/bg1.ogg',
         'assets/bg2.ogg',
@@ -738,7 +827,7 @@ async def main():
     
     run = True
     play_once = False
-    
+
     while run:
         screen.fill("light grey")
         
