@@ -7,6 +7,10 @@ https://opengameart.org/content/isometric-medieval-city-sim-assets
 
 https://opengameart.org/content/axe-cursor
 
-and bing ai image generator
+All sound clips from 
+https://freesound.org/
 
+and bing ai image generator
 All music written in Beepbox 
+
+
