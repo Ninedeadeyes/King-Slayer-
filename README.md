@@ -15,4 +15,8 @@ https://freesound.org/
 and bing ai image generator
 All music written in Beepbox 
 
+Play the game online below
+
+https://ninedeadeyes.itch.io/king-slayer
+
 
