@@ -257,7 +257,7 @@ class Game:
             "Summon Cost:", True, "black")
         
         demon_passive_cost_display2 = self.button_font.render(
-            f"King Skulls: {int(self.demon_passive_income_cost)} King Skulls", True, "black")
+            f"King Skulls: {int(self.demon_passive_income_cost)}", True, "black")
 
         demon_passive_cost_display3 = self.button_font.render(
             f"Gold: {int(self.demon_passive_gold_income_cost)}", True, "black")    
