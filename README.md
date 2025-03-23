@@ -21,5 +21,6 @@ https://ninedeadeyes.itch.io/king-slayer
 
 Please Note
 
-main ( online version) has slighly different code than the local version. If you want to use pygbag and run it on local host, you will need to change it to main.py and then run pygbag
+main ( online version) has slighly different code than the local version. If you want to use pygbag and run it on local host, you will need to change it to main.py and then run pygbag.
+
 bg0.ogg is only played on the online version but I have put it in the assets folder for simplicity sake. 
